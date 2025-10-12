@@ -9,15 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // 내부 PK
+    private Long id;
 
-    @Column(unique = true)
-    private String uuid;  // Supabase user id
-
-    private String email;
     private Long room_id;
     private String name;
+
+    @Column(unique = true)
+    private String uuid;
 }
