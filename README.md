@@ -29,23 +29,23 @@ React → Supabase SDK → auth.users
 [로그인]   
 
 React 
-→ Supabase SDK 
-→ access_token 발급 
-→ React 
-→ Spring 서버로 토큰 전달
-→ Spring 서버가 토큰 검증
-→ Supabase Auth 서버에서 유저 정보(user id, email 등) 요청
-→ Spring 서버가 public.users 테이블에 유저 정보 저장
+1. Supabase SDK
+2. access_token 발급
+3. React
+4. Spring 서버로 토큰 전달
+5. Spring 서버가 토큰 검증
+6. Supabase Auth 서버에서 유저 정보(user id, email 등) 요청
+7. Spring 서버가 public.users 테이블에 유저 정보 저장
 
 ---
 
 [Realtime 로직]
-사용자가 room_id 입력 
-→ react → Spring Server(Post /rooms/join) 
-→ 서버가 DB에서 해당 room존재 여부 확인 
-→ 없으면 새 room 레코드 생성 후 반환, 존재하면 그대로 해당 레코드 반환 
-→ Spring -(json)→ React 
-→ realtime 구독 시작
+1. 사용자가 room_id 입력
+2. react → Spring Server(Post /rooms/join)
+3. 서버가 DB에서 해당 room존재 여부 확인
+4. 없으면 새 room 레코드 생성 후 반환, 존재하면 그대로 해당 레코드 반환
+5. Spring -(json)→ React
+6. realtime 구독 시작
 <Realtime으로 채팅은 사용자 계정과는 무관하게 작동 - 아직 RLS설정 전이라>
 
 
