@@ -45,6 +45,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { supabase } from './supabaseClient'
+import { startSession } from './utils/sessionManager'
 
 export default function Login() {
     const [email, setEmail] = useState('')
@@ -60,6 +61,9 @@ export default function Login() {
             setMessage(`❌ ${error.message}`)
             return
         }
+
+        // 🔐 세션 시작 시간 저장 (5분 타이머 시작)
+        startSession()
 
         // access_token 가져오기
         const accessToken = data.session.access_token
