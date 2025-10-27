@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { supabase } from './supabaseClient'
 
-export default function SignUp() {
+export default function SignUp({ onLogin }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
@@ -9,8 +9,15 @@ export default function SignUp() {
     const handleSignUp = async (e) => {
         e.preventDefault()
         const { data, error } = await supabase.auth.signUp({ email, password })
-        if (error) setMessage(`❌ ${error.message}`)
-        else setMessage('✅ 회원가입 성공! 이메일 인증을 확인하세요.')
+        if (error) {
+            setMessage(`❌ ${error.message}`)
+        } else {
+            setMessage('✅ 회원가입 성공! 이메일 인증을 확인하세요.')
+            // 자동 로그인 상태 업데이트
+            if (onLogin) {
+                onLogin()
+            }
+        }
     }
 
     return (

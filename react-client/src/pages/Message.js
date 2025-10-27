@@ -2,14 +2,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { supabase } from '../supabaseClient'
+import { isSessionExpired } from '../utils/sessionManager'
 
-export default function Message() {
+export default function Message({ setPage }) {
     const [roomId, setRoomId] = useState('')
     const [roomData, setRoomData] = useState(null)
     const [message, setMessage] = useState('')
     const [inputMessage, setInputMessage] = useState('')
     const [payload, setPayload] = useState(null)
     const channelRef = useRef(null)
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    // 🔐 로그인 체크
+    useEffect(() => {
+        const checkAuth = async () => {
+            if (isSessionExpired()) {
+                await supabase.auth.signOut()
+                setPage('login')
+                return
+            }
+            
+            const { data: { session } } = await supabase.auth.getSession()
+            if (!session) {
+                setPage('login')
+            } else {
+                setIsAuthenticated(true)
+            }
+        }
+        checkAuth()
+    }, [setPage])
 
     const joinRoom = async () => {
         if (!roomId) return alert('room_id를 입력하세요.')
