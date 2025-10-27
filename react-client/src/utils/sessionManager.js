@@ -3,7 +3,7 @@
  * 5분(300초) 후 자동 만료
  */
 
-const SESSION_EXPIRE_TIME = 60 * 1000; // 5분 (밀리초)
+const SESSION_EXPIRE_TIME = 3 * 60 * 1000; // 5분 (밀리초)
 
 /**
  * 세션 시작 시간을 저장

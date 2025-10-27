@@ -47,7 +47,7 @@ import axios from 'axios'
 import { supabase } from './supabaseClient'
 import { startSession } from './utils/sessionManager'
 
-export default function Login() {
+export default function Login({ onLogin }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [token, setToken] = useState('')
@@ -82,6 +82,10 @@ export default function Login() {
                 }
             )
             setMessage('✅ 로그인 성공 및 서버 동기화 완료!')
+            // App.js에 로그인 상태 알리기
+            if (onLogin) {
+                onLogin()
+            }
         } catch (err) {
             console.error(err)
             setMessage('⚠️ 로그인은 성공했지만 서버 동기화 실패!')
